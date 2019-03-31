@@ -1,0 +1,11 @@
+dependencies {
+    compile "javax.ws.rs:javax.ws.rs-api"
+    compile "io.swagger:swagger-jersey2-jaxrs"
+
+    compile "com.fasterxml.jackson.module:jackson-module-kotlin"
+    compile "com.fasterxml.jackson.core:jackson-core"
+    compile "com.fasterxml.jackson.core:jackson-databind"
+    compile "com.fasterxml.jackson.core:jackson-annotations"
+    compile "com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider"
+    compile "com.fasterxml.jackson.jaxrs:jackson-jaxrs-base"
+}

@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: server
+    desc: SpringCloud server project
+    version: 4.0.0
+    packageName: com.aaron
+
+server:
+  port: 8080

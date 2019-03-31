@@ -1,0 +1,2 @@
+org.springframework.context.ApplicationContextInitializer=\
+com.aaron.common.service.Log4j2Initializer

@@ -1,0 +1,9 @@
+rootProject.name = 'springcloud'
+include ":api"
+include ":api:api-server"
+include ":service"
+include ":service:service-server"
+include ":common"
+include ":common:common-api"
+include ":common:common-service"
+include ":common:common-web"
