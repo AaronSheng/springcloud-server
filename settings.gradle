@@ -7,3 +7,6 @@ include ":common"
 include ":common:common-api"
 include ":common:common-service"
 include ":common:common-web"
+include 'service:service-config'
+findProject(':service:service-config')?.name = 'service-config'
+

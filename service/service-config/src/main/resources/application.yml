@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: config
+    desc: SpringCloud config project
+    version: 4.0.0
+    packageName: com.aaron
+
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/AaronSheng/springcloud-server.git
+          search-paths: config/
+
+server:
+  port: 8081

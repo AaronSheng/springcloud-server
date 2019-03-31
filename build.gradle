@@ -98,6 +98,7 @@ subprojects {
                 entry "spring-cloud-starter-consul-discovery"
                 entry "spring-cloud-starter-consul-core"
                 entry "spring-cloud-starter-sleuth"
+                entry "spring-cloud-config-server"
             }
         }
     }
