@@ -10,7 +10,7 @@ spring:
       server:
         git:
           uri: https://github.com/AaronSheng/springcloud-server.git
-          search-paths: config/
+          search-paths: config/{application}/
 
 server:
   port: 8081
