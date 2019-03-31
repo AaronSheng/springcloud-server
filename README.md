@@ -1,7 +1,7 @@
-SpringCloud web server project.
-Consists of:
-1. SpringBoot restful api server.
-2. Consul register and client.
-3. SpringCloud feign client rpc.
-4. SpringCloud config server.
-5. SpringCLoud sleuth log trace.
+SpringCloud web server project. Using gradle to manage modules.
+Tht main components include following parts:
+- SpringBoot with jersy provide restful api.
+- Consul register service and find service.
+- SpringCloud feign client to remote process call.
+- SpringCloud config server to isolate config.
+- SpringCLoud sleuth to trace log.
