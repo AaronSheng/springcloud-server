@@ -10,6 +10,6 @@ server:
   port: 8088
   
 from:
-  addr: gz
+  addr: china-dev
 
 
