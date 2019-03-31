@@ -7,3 +7,6 @@ spring:
 
 server:
   port: 80
+  
+from:
+  addr: gz
