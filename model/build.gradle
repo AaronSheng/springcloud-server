@@ -1,0 +1,48 @@
+subprojects {
+    def moduleName = name.split('-')[1]
+    def databaseName = "db_$moduleName"
+    println("database is $databaseName")
+
+    apply plugin: 'nu.studer.jooq'
+
+    dependencies {
+        compile "org.jooq:jooq"
+        jooqRuntime "mysql:mysql-connector-java"
+    }
+
+    jooq {
+        genenrate(sourceSets.main) {
+            jdbc {
+                driver = 'com.mysql.jdbc.Driver'
+                url = "jdbc:mysql://localhost:3306/$databaseName?useSSL=false"
+                user = "root"
+                password = "11111111"
+            }
+
+            generator {
+                name = 'org.jooq.util.DefaultGenerator'
+
+                database {
+                    name = 'org.jooq.util.mysql.MySQLDatabase'
+                    inputSchema = databaseName
+                }
+
+                strategy {
+                    name = 'org.jooq.util.DefaultGeneratorStrategy'
+                }
+
+                generate {
+                    relations = false
+                    deprecated = false
+                    fluentSetters = true
+                    generatedAnnotation = false
+                    javaTimeTypes = true
+                }
+
+                target {
+                    packageName = "com.aaron.model.${moduleName}"
+                }
+            }
+        }
+    }
+}
