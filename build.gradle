@@ -84,6 +84,7 @@ subprojects {
                 mavenBom "org.springframework.boot:spring-boot-dependencies:$springBootVersion"
             }
             dependency "io.swagger:swagger-annotations:$swaggerVersion"
+            dependency "org.hashids:hashids:$hashidsVersion"
             dependency "javax.ws.rs:javax.ws.rs-api:$jaxrsVersion"
             dependency "io.swagger:swagger-jersey2-jaxrs:$swaggerVersion"
 

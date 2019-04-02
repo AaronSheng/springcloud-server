@@ -6,9 +6,6 @@ spring:
     packageName: com.aaron
 
 server:
-  port: 80
-  
-from:
-  addr: gz
+  port: 8080
 
 
