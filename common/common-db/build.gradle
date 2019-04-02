@@ -1,0 +1,6 @@
+dependencies {
+    compile "org.springframework.boot:spring-boot-starter-jooq"
+    compile "com.zaxxer:HikariCP"
+    compile "org.jooq:jooq"
+    compile "mysql:mysql-connector-java"
+}

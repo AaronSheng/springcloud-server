@@ -16,7 +16,7 @@ import javax.ws.rs.core.MediaType
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 interface UserResource {
-    @ApiOperation("获取信息")
+    @ApiOperation("获取用户信息")
     @Path("/{userId}")
     @GET
     fun get(
@@ -24,4 +24,13 @@ interface UserResource {
         @PathParam("userId")
         userId: Long
     ): Result<User>
+
+    @ApiOperation("创建用户")
+    @Path("/")
+    @POST
+    fun create(
+        @ApiParam(value = "用户名", required = true)
+        @QueryParam("name")
+        name: String
+    ): Result<Boolean>
 }

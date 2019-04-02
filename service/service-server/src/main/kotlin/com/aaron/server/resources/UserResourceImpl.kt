@@ -20,6 +20,12 @@ class UserResourceImpl @Autowired constructor(
         return Result(userService.getUser(userId))
     }
 
+    override fun create(name: String): Result<Boolean> {
+        logger.info("User create user($name)")
+        userService.createUser(name)
+        return Result(true)
+    }
+
     companion object {
         private val logger = LoggerFactory.getLogger(this::class.java)
     }

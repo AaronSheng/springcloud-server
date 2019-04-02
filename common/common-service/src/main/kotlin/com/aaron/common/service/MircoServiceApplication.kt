@@ -9,6 +9,6 @@ import kotlin.reflect.KClass
  */
 object MircoServiceApplication {
     fun run(application: KClass<*>, args: Array<String>) {
-        SpringApplicationBuilder().bannerMode(Banner.Mode.CONSOLE).sources(application.java).run(*args)
+        SpringApplicationBuilder().bannerMode(Banner.Mode.OFF).sources(application.java).run(*args)
     }
 }

@@ -8,6 +8,8 @@ import io.swagger.annotations.ApiModelProperty
  */
 @ApiModel("用户-用户信息")
 data class User(
-        @ApiModelProperty("用户ID", required = true)
-        val id: Long
+    @ApiModelProperty("用户ID", required = true)
+    val id: Long,
+    @ApiModelProperty("用户名", required = true)
+    val name: String
 )
