@@ -1,5 +1,6 @@
 package com.aaron.common.db
 
+import com.mysql.jdbc.Driver
 import com.zaxxer.hikari.HikariDataSource
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.autoconfigure.AutoConfigureBefore
@@ -12,7 +13,6 @@ import org.springframework.context.annotation.Primary
 import org.springframework.context.annotation.PropertySource
 import org.springframework.core.Ordered
 import org.springframework.transaction.annotation.EnableTransactionManagement
-import java.sql.Driver
 import javax.sql.DataSource
 
 /**
