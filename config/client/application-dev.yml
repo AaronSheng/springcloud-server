@@ -1,0 +1,14 @@
+spring:
+  profiles: dev
+  application:
+    name: client
+    desc: SpringCloud client project
+    version: 4.0.0
+    packageName: com.aaron
+  datasource:
+    url: jdbc:mysql://localhost:3306/db_client?useSSL=false&autoReconnect=true&timezone=+800&useUnicode=true&characterEncoding=utf8&allowMultiQueries=true
+    username: root
+    password: 11111111
+
+server:
+  port: 8089
