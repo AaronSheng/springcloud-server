@@ -10,16 +10,12 @@ import feign.Retryer
 import feign.jackson.JacksonDecoder
 import feign.jackson.JacksonEncoder
 import feign.jaxrs.JAXRSContract
-import feign.okhttp.OkHttpClient
-import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.beans.factory.annotation.Value
 import org.springframework.cloud.client.ServiceInstance
 import org.springframework.cloud.consul.discovery.ConsulDiscoveryClient
 import org.springframework.core.annotation.AnnotationUtils
 import org.springframework.stereotype.Component
 import java.util.concurrent.ConcurrentHashMap
-import java.util.concurrent.TimeUnit
 import kotlin.reflect.KClass
 
 /**
@@ -38,27 +34,22 @@ class Client @Autowired constructor(
     private val jacksonEncoder = JacksonEncoder(objectMapper)
 
     fun <T : Any> get(clz: KClass<T>): T {
-        return get(clz, "")
-    }
-
-    fun <T : Any> get(clz: KClass<T>, suffix: String): T {
         val serviceName = findServiceName(clz)
-        val serviceInstance = choose(serviceName + suffix)
+        val serviceInstance = choose(serviceName)
+        val url = "${if (serviceInstance.isSecure) "https" else "http"}://${serviceInstance.host}:${serviceInstance.port}/api"
         return Feign.builder()
             .client(feignClient)
             .errorDecoder(clientErrorDecoder)
             .encoder(jacksonEncoder)
             .decoder(jacksonDecoder)
             .contract(jaxRsContract)
-            .target(
-                clz.java,
-                "${if (serviceInstance.isSecure) "https" else "http"}://${serviceInstance.host}:${serviceInstance.port}/api"
-            )
+            .target(clz.java, url)
     }
 
     fun <T : Any> getWithoutRetry(clz: KClass<T>): T {
         val serviceName = findServiceName(clz)
         val serviceInstance = choose(serviceName)
+        val url = "${if (serviceInstance.isSecure) "https" else "http"}://${serviceInstance.host}:${serviceInstance.port}/api"
         return Feign.builder()
             .client(feignClient)
             .errorDecoder(clientErrorDecoder)
@@ -75,12 +66,8 @@ class Client @Autowired constructor(
                     throw e
                 }
             })
-            .target(
-                clz.java,
-                "${if (serviceInstance.isSecure) "https" else "http"}://${serviceInstance.host}:${serviceInstance.port}/api"
-            )
+            .target(clz.java, url)
     }
-
 
     private fun choose(serviceName: String): ServiceInstance {
         val instances = consulClient.getInstances(serviceName) ?: throw ClientException("找不到任何有效的[$serviceName]服务提供者")
@@ -105,9 +92,5 @@ class Client @Autowired constructor(
             }
         }
         return interfaces.getOrPut(clz, findService)
-    }
-
-    companion object {
-        private val logger = LoggerFactory.getLogger(Client::class.java)
     }
 }
