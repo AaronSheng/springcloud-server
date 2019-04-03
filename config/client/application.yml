@@ -10,4 +10,4 @@ spring:
     password: 11111111
 
 server:
-  port: 8081
+  port: 8088
