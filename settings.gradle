@@ -9,5 +9,7 @@ include ":common:common-api"
 include ":common:common-service"
 include ":common:common-web"
 include ":common:common-db"
+include ":common:common-client"
 include ":model"
 include ":model:model-server"
+

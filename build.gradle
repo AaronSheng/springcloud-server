@@ -95,9 +95,16 @@ subprojects {
             dependency "com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider:$jacksonVersion"
             dependency "com.fasterxml.jackson.jaxrs:jackson-jaxrs-base:$jacksonVersion"
 
+            dependencySet(group: "io.github.openfeign", version: "$feignVersion") {
+                entry "feign-jaxrs"
+                entry "feign-okhttp"
+                entry "feign-jackson"
+            }
+            
             dependencySet(group: "org.springframework.cloud", version: "$springCloudVersion") {
                 entry "spring-cloud-starter-consul-discovery"
                 entry "spring-cloud-starter-consul-core"
+                entry "spring-cloud-starter-feign"
                 entry "spring-cloud-starter-sleuth"
                 entry "spring-cloud-config-server"
             }

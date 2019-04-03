@@ -1,0 +1,7 @@
+dependencies {
+    compile project(":common:common-api")
+    compile project(":common:common-service")
+    compile "io.github.openfeign:feign-jaxrs"
+    compile "io.github.openfeign:feign-okhttp"
+    compile "io.github.openfeign:feign-jackson"
+}
