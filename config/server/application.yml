@@ -4,8 +4,12 @@ spring:
     desc: SpringCloud server project
     version: 4.0.0
     packageName: com.aaron
+  datasource:
+    url: jdbc:mysql://localhost:3306/db_server?useSSL=false&autoReconnect=true&timezone=+800&useUnicode=true&characterEncoding=utf8&allowMultiQueries=true
+    username: root
+    password: 11111111
 
 server:
-  port: 8080
+  port: 8083
 
 

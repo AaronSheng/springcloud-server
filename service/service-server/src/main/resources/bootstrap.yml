@@ -1,0 +1,6 @@
+spring:
+  cloud:
+    config:
+      uri: http://localhost:8082/api/
+      profile: default
+      name: server
