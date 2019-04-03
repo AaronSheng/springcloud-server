@@ -70,7 +70,7 @@ public class Log4j2Initializer implements ApplicationContextInitializer<Configur
         builder.setConfigurationName("Config");
 
         LayoutComponentBuilder consoleLayoutBuilder = builder.newLayout("PatternLayout")
-            .addAttribute("pattern", "%d{yyyy-MM-dd HH:mm:ss} %blue{[%15.15t]} %highlight{%5level} %cyan{%-40.40c{1.} %-4.4L} %cyan{Trace(%X{X-B3-TraceId},%X{X-B3-SpanId},%X{X-B3-ParentSpanId})} %msg%n%throwable")
+            .addAttribute("pattern", "%d{yyyy-MM-dd HH:mm:ss} %blue{[%8.8t]} %highlight{%5level} %cyan{%-40.40c{1.} %-4.4L} %cyan{Trace(%X{X-B3-TraceId},%X{X-B3-SpanId},%X{X-B3-ParentSpanId})} %msg%n%throwable")
             .addAttribute("charset", "UTF-8");
 
         AppenderComponentBuilder appenderBuilder = builder.newAppender("Stdout", "CONSOLE").addAttribute("target",
@@ -94,7 +94,7 @@ public class Log4j2Initializer implements ApplicationContextInitializer<Configur
                 .add(builder.newAppenderRef("Stdout")));
         } else {
             LayoutComponentBuilder rollingLayoutBuilder = builder.newLayout("PatternLayout")
-                .addAttribute("pattern", "%d{yyyy.MM.dd HH:mm:ss} [%15.15t] %5level %-40.40c{1.} %-4.4L Trace(%X{X-B3-TraceId},%X{X-B3-SpanId},%X{X-B3-ParentSpanId}) %msg%n%throwable")
+                .addAttribute("pattern", "%d{yyyy.MM.dd HH:mm:ss} [%8.8t] %5level %-40.40c{1.} %-4.4L Trace(%X{X-B3-TraceId},%X{X-B3-SpanId},%X{X-B3-ParentSpanId}) %msg%n%throwable")
                 .addAttribute("charset", "UTF-8");
 
             ComponentBuilder triggeringPolicy = builder.newComponent("Policies")

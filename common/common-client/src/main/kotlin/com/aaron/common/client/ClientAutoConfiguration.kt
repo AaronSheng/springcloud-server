@@ -25,15 +25,13 @@ import java.util.concurrent.TimeUnit
 class ClientAutoConfiguration {
 
     @Bean
-    fun okHttpClient() = {
-        OkHttpClient(
-            okhttp3.OkHttpClient.Builder()
-                .connectTimeout(5L, TimeUnit.SECONDS)
-                .readTimeout(60L, TimeUnit.SECONDS)
-                .writeTimeout(60L, TimeUnit.SECONDS)
-                .build()
-        )
-    }
+    fun okHttpClient() = OkHttpClient(
+        okhttp3.OkHttpClient.Builder()
+            .connectTimeout(5L, TimeUnit.SECONDS)
+            .readTimeout(60L, TimeUnit.SECONDS)
+            .writeTimeout(60L, TimeUnit.SECONDS)
+            .build()
+    )
 
     @Bean
     fun clientErrorDecoder(objectMapper: ObjectMapper) = ClientErrorDecoder(objectMapper)

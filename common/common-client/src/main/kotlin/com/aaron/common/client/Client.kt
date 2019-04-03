@@ -83,7 +83,7 @@ class Client @Autowired constructor(
 
 
     private fun choose(serviceName: String): ServiceInstance {
-        val instances = consulClient.getInstances(serviceName) ?: throw ClientException("找不到任何有效的\"$serviceName\"服务提供者")
+        val instances = consulClient.getInstances(serviceName) ?: throw ClientException("找不到任何有效的[$serviceName]服务提供者")
         if (instances.isEmpty()) {
             throw ClientException("找不到任何有效的\"$serviceName\"服务提供者")
         }

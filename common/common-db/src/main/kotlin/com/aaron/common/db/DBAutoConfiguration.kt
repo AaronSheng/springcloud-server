@@ -35,7 +35,7 @@ class DBAutoConfiguration {
     @Bean
     @Primary
     fun dataSource(): DataSource {
-        if (datasourceUrl == null || datasourceUrl!!.isBlank()) {
+        if (datasourceUrl == null || datasourceUrl.isBlank()) {
             throw IllegalArgumentException("Database connection address is not configured")
         }
         return HikariDataSource().apply {
