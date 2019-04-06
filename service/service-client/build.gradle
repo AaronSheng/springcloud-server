@@ -5,4 +5,6 @@ dependencies {
     compile project(":model:model-client")
     compile project(":api:api-client")
     compile project(":api:api-server")
+    compile "org.springframework.cloud:spring-cloud-starter-config"
+    compile "org.springframework.boot:spring-boot-starter-actuator"
 }
