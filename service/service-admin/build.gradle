@@ -1,0 +1,4 @@
+dependencies {
+    compile project(":common:common-service")
+    compile "de.codecentric:spring-boot-admin-starter-server"
+}

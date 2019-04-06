@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: admin
+    desc: SpringCloud admin project
+    version: 4.0.0
+    packageName: com.aaron
+  boot:
+    admin:
+      discovery:
+        ignored-services: consul
+
+server:
+  port: 8080
+
+management:
+  security:
+    enabled: false
