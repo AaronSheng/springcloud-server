@@ -12,4 +12,7 @@ spring:
 server:
   port: 8083
 
+management:
+  security:
+    enabled: false
 
