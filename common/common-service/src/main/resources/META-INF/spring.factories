@@ -1,2 +1,4 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.aaron.common.service.ServiceAutoConfiguration
 org.springframework.context.ApplicationContextInitializer=\
 com.aaron.common.service.Log4j2Initializer
