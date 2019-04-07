@@ -1,5 +1,6 @@
 package com.aaron.common.web
 
+import com.aaron.common.web.sleuth.SleuthResponseFilter
 import org.glassfish.jersey.server.ResourceConfig
 import org.springframework.beans.factory.InitializingBean
 import org.springframework.context.ApplicationContext
@@ -22,5 +23,6 @@ open class JerseyConfig : ResourceConfig(), ApplicationContextAware, Initializin
         restResources.values.forEach {
             register(it)
         }
+        register(SleuthResponseFilter::class.java)
     }
 }
