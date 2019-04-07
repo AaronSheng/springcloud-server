@@ -103,6 +103,10 @@ subprojects {
                 entry "feign-jackson"
             }
 
+            dependencySet(group: "org.springframework.boot", version: "$springBootVersion") {
+                entry "spring-boot-starter-mail"
+            }
+            
             dependencySet(group: "org.springframework.cloud", version: "$springCloudVersion") {
                 entry "spring-cloud-starter-consul-discovery"
                 entry "spring-cloud-starter-consul-core"

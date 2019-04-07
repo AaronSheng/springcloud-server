@@ -8,6 +8,21 @@ spring:
     admin:
       discovery:
         ignored-services: consul
+#      notify:
+#        mail:
+#          from: 1530173919@qq.com
+#          to: AaronSheng91@126.com
+#  mail:
+#    host: smtp.qq.com
+#    username: 1530173919@qq.com
+#    password: qq授权码
+#    properties:
+#      mail:
+#        smtp:
+#          auth: true
+#          starttls:
+#            enable: true
+#            required: true
 
 server:
   port: 8080
