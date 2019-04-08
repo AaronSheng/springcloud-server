@@ -2,7 +2,7 @@ package com.aaron.admin
 
 import com.aaron.common.service.MicroService
 import com.aaron.common.service.MircoServiceApplication
-import de.codecentric.boot.admin.config.EnableAdminServer
+import de.codecentric.boot.admin.server.config.EnableAdminServer
 
 /**
  * Created by Aaron Sheng on 2018/6/19.

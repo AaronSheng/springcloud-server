@@ -1,9 +1,9 @@
 package com.aaron.common.client
 
 import com.aaron.common.api.pojo.Result
-import com.aaron.common.api.pojo.exception.ClientException
-import com.aaron.common.api.pojo.exception.OperationException
-import com.aaron.common.api.pojo.exception.RemoteServiceException
+import com.aaron.common.api.exception.ClientException
+import com.aaron.common.api.exception.OperationException
+import com.aaron.common.api.exception.RemoteServiceException
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import feign.Response

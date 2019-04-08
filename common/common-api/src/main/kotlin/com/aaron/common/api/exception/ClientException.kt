@@ -1,3 +1,3 @@
-package com.aaron.common.api.pojo.exception
+package com.aaron.common.api.exception
 
 class ClientException(message: String) : RuntimeException(message)

@@ -1,7 +1,7 @@
 package com.aaron.common.web.sleuth
 
+import brave.Tracer
 import com.aaron.common.service.util.SpringContextUtil
-import org.springframework.cloud.sleuth.Tracer
 import javax.ws.rs.container.ContainerRequestContext
 import javax.ws.rs.container.ContainerResponseContext
 import javax.ws.rs.container.ContainerResponseFilter
@@ -18,7 +18,7 @@ class SleuthResponseFilter : ContainerResponseFilter {
         val headers = responseContext?.headers
         if (headers != null && !headers.containsKey(REQUEST_ID)) {
             val tracer = SpringContextUtil.getBean(Tracer::class.java)
-            headers.add(REQUEST_ID, tracer.currentSpan.traceIdString())
+            headers.add(REQUEST_ID, tracer.currentSpan().context().traceIdString())
         }
     }
 }

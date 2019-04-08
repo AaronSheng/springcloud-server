@@ -1,4 +1,4 @@
-package com.aaron.common.api.pojo.annotation
+package com.aaron.common.api.annotation
 
 @Target(AnnotationTarget.CLASS, AnnotationTarget.FILE)
 @Retention(AnnotationRetention.RUNTIME)

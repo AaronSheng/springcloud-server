@@ -1,9 +1,7 @@
 package com.aaron.common.client
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import feign.Feign
 import feign.okhttp.OkHttpClient
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.autoconfigure.AutoConfigureAfter
 import org.springframework.boot.autoconfigure.AutoConfigureOrder
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean

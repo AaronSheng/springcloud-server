@@ -8,6 +8,8 @@ spring:
     admin:
       discovery:
         ignored-services: consul
+      ui:
+        title: "应用监控"
 #      notify:
 #        mail:
 #          from: 1530173919@qq.com

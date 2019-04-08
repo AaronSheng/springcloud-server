@@ -1,6 +1,6 @@
 package com.aaron.common.client
 
-import com.aaron.common.api.pojo.annotation.ServiceInterface
+import com.aaron.common.api.annotation.ServiceInterface
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.netflix.client.ClientException
 import feign.Feign

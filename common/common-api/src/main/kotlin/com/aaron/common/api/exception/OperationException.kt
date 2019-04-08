@@ -1,4 +1,4 @@
-package com.aaron.common.api.pojo.exception
+package com.aaron.common.api.exception
 
 open class OperationException(message: String) : RuntimeException(message) {
     companion object {

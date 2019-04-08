@@ -84,7 +84,10 @@ public class Log4j2Initializer implements ApplicationContextInitializer<Configur
             .addAttribute("additivity", false));
 
         // 有profile时才将日志输出到文件中
-        if (environment.getActiveProfiles().length == 0 || appName.equals("bootstrap")) {
+        if (environment.getActiveProfiles() == null
+            || environment.getActiveProfiles().length == 0
+            || appName == null
+            || appName.equals("bootstrap")) {
             // com.aaron输出debug日志
             builder.add(builder.newLogger("com.aaron", Level.DEBUG)
                 .add(builder.newAppenderRef("Stdout"))
