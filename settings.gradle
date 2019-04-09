@@ -13,7 +13,7 @@ include ":common:common-service"
 include ":common:common-web"
 include ":common:common-db"
 include ":common:common-client"
+include 'common:common-util'
 include ":model"
 include 'model:model-server'
 include 'model:model-client'
-
