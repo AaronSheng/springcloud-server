@@ -117,6 +117,7 @@ subprojects {
                 entry "spring-cloud-starter-zipkin"
                 entry "spring-cloud-starter-openfeign"
                 entry "spring-cloud-starter-config"
+                entry "spring-cloud-stream-binder-rabbit"
                 entry "spring-cloud-config-server"
             }
         }
