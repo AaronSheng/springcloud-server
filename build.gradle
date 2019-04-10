@@ -108,6 +108,7 @@ subprojects {
 
             dependencySet(group: "org.springframework.boot", version: "$springBootVersion") {
                 entry "spring-boot-starter-mail"
+                entry "spring-boot-starter-data-redis"
             }
 
             dependencySet(group: "org.springframework.cloud", version: "$springCloudVersion") {
