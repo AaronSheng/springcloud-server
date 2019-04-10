@@ -2,6 +2,7 @@ package com.aaron.config
 
 import com.aaron.common.service.MicroService
 import com.aaron.common.service.MircoServiceApplication
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient
 import org.springframework.cloud.config.server.EnableConfigServer
 
 /**
@@ -9,6 +10,7 @@ import org.springframework.cloud.config.server.EnableConfigServer
  */
 @MicroService
 @EnableConfigServer
+@EnableDiscoveryClient
 class Application
 
 fun main(args: Array<String>) {

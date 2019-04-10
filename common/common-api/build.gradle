@@ -8,4 +8,6 @@ dependencies {
     compile "com.fasterxml.jackson.core:jackson-annotations"
     compile "com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider"
     compile "com.fasterxml.jackson.jaxrs:jackson-jaxrs-base"
+
+    compile "org.springframework.cloud:spring-cloud-starter-openfeign"
 }

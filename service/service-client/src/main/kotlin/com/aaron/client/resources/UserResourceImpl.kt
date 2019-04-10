@@ -7,11 +7,12 @@ import com.aaron.common.api.pojo.Result
 import com.aaron.common.web.RestResource
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.web.bind.annotation.RestController
 
 /**
  * Created by Aaron Sheng on 2018/6/19.
  */
-@RestResource
+@RestController
 class UserResourceImpl @Autowired constructor(
     private val userService: UserService
 ) : UserResource {

@@ -1,20 +1,19 @@
-package com.aaron.server.api
+package com.aaron.client.feign
 
-import com.aaron.server.api.pojo.User
 import com.aaron.common.api.pojo.Result
-import io.swagger.annotations.Api
+import com.aaron.server.api.pojo.User
 import io.swagger.annotations.ApiOperation
 import io.swagger.annotations.ApiParam
+import org.springframework.cloud.openfeign.FeignClient
 import org.springframework.web.bind.annotation.*
 
 /**
- * Created by Aaron Sheng on 2018/6/12.
+ * Created by Aaron Sheng on 2019/4/10.
  */
-@Api(tags = ["USER_USER"], description = "用户-用户信息")
-@RequestMapping("/users")
-interface UserResource {
+@FeignClient("server")
+interface UserFeign {
     @ApiOperation("获取用户信息")
-    @GetMapping("/{userId}")
+    @GetMapping("/users/{userId}")
     fun get(
         @ApiParam(value = "用户ID", required = true)
         @PathVariable("userId")
@@ -22,7 +21,7 @@ interface UserResource {
     ): Result<User>
 
     @ApiOperation("创建用户")
-    @PostMapping("/")
+    @PostMapping("/users/")
     fun create(
         @ApiParam(value = "用户名", required = true)
         @RequestParam("name")

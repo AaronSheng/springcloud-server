@@ -12,5 +12,10 @@ spring:
           uri: https://github.com/AaronSheng/springcloud-server.git
           search-paths: config/{application}/
 
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8085/eureka/
+
 server:
   port: 8082

@@ -7,6 +7,7 @@ include ":service:service-server"
 include ":service:service-config"
 include 'service:service-client'
 include 'service:service-admin'
+include 'service:service-eureka'
 include ":common"
 include ":common:common-api"
 include ":common:common-service"
@@ -18,4 +19,3 @@ include 'common:common-redis'
 include ":model"
 include 'model:model-server'
 include 'model:model-client'
-

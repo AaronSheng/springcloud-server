@@ -28,7 +28,6 @@ buildscript {
     }
 
     repositories {
-        maven {url "http://mirrors.devops.oa.com/maven/"}
         mavenLocal()
         mavenCentral()
         jcenter()
@@ -48,7 +47,6 @@ allprojects {
     version '1.0.0'
 
     repositories {
-        maven {url "http://mirrors.devops.oa.com/maven/"}
         mavenLocal()
         mavenCentral()
         jcenter()
@@ -112,13 +110,13 @@ subprojects {
             }
 
             dependencySet(group: "org.springframework.cloud", version: "$springCloudVersion") {
-                entry "spring-cloud-starter-consul-discovery"
-                entry "spring-cloud-starter-consul-core"
                 entry "spring-cloud-starter-sleuth"
                 entry "spring-cloud-starter-zipkin"
                 entry "spring-cloud-starter-openfeign"
                 entry "spring-cloud-starter-config"
                 entry "spring-cloud-stream-binder-rabbit"
+                entry "spring-cloud-starter-netflix-eureka-client"
+                entry "spring-cloud-starter-netflix-eureka-server"
                 entry "spring-cloud-config-server"
             }
         }

@@ -2,4 +2,5 @@ dependencies {
     compile project(":common:common-service")
     compile project(":common:common-web")
     compile "org.springframework.cloud:spring-cloud-config-server"
+    compile "org.springframework.cloud:spring-cloud-starter-netflix-eureka-client"
 }

@@ -5,6 +5,10 @@ import com.aaron.common.api.pojo.Result
 import io.swagger.annotations.Api
 import io.swagger.annotations.ApiOperation
 import io.swagger.annotations.ApiParam
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestParam
 import javax.ws.rs.*
 import javax.ws.rs.core.MediaType
 
@@ -12,16 +16,12 @@ import javax.ws.rs.core.MediaType
  * Created by Aaron Sheng on 2019/4/3.
  */
 @Api(tags = ["USER_USER"], description = "用户-用户信息")
-@Path("/users")
-@Produces(MediaType.APPLICATION_JSON)
-@Consumes(MediaType.APPLICATION_JSON)
+@RequestMapping("/users")
 interface UserResource {
     @ApiOperation("获取用户信息")
-    @Path("/{userId}")
-    @GET
+    @GetMapping("/{userId}")
     fun get(
         @ApiParam(value = "用户ID", required = true)
-        @PathParam("userId")
-        userId: Long
+        @PathVariable("userId") userId: Long
     ): Result<User>
 }
