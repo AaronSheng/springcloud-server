@@ -22,6 +22,11 @@ spring:
     sampler:
       probability: 1.0
 
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8085/eureka/
+
 server:
   port: 8083
 
