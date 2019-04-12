@@ -13,7 +13,7 @@ import javax.annotation.PostConstruct
  * Created by Aaron Sheng on 2018/6/12.
  */
 @Component
-class JerseySwaggerConfig : JerseyConfig() {
+class JerseySwaggerConfig {
     @Value("\${spring.application.desc:#{null}}")
     private val applicationDesc: String? = null
 
@@ -26,8 +26,6 @@ class JerseySwaggerConfig : JerseyConfig() {
     @PostConstruct
     fun init() {
         configSwagger()
-        register(SwaggerSerializers::class.java)
-        register(ApiListingResource::class.java)
     }
 
     private fun configSwagger() {
@@ -37,7 +35,7 @@ class JerseySwaggerConfig : JerseyConfig() {
                 version = applicationVersion
                 resourcePackage = packageName
                 scan = true
-                basePath = "/api"
+                basePath = "/"
             }
         }
     }

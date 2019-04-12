@@ -1,5 +1,6 @@
 package com.aaron.common.web
 
+import com.aaron.common.web.sleuth.ServletResponseFilter
 import org.springframework.boot.autoconfigure.AutoConfigureBefore
 import org.springframework.boot.autoconfigure.AutoConfigureOrder
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication
@@ -22,6 +23,5 @@ class WebAutoConfiguration{
     fun jerseySwaggerConfig() = JerseySwaggerConfig()
 
     @Bean
-    @Profile("prod")
-    fun jerseyConfig() = JerseyConfig()
+    fun sleuthResponseFilter() = ServletResponseFilter()
 }
