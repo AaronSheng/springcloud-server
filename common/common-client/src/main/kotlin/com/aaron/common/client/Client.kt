@@ -12,6 +12,7 @@ import feign.jackson.JacksonEncoder
 import feign.jaxrs.JAXRSContract
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.cloud.client.ServiceInstance
+import org.springframework.cloud.client.discovery.DiscoveryClient
 import org.springframework.cloud.consul.discovery.ConsulDiscoveryClient
 import org.springframework.core.annotation.AnnotationUtils
 import org.springframework.stereotype.Component
@@ -24,7 +25,7 @@ import kotlin.reflect.KClass
 @Component
 class Client @Autowired constructor(
     private val feignClient: feign.Client,
-    private val consulClient: ConsulDiscoveryClient,
+    private val consulClient: DiscoveryClient,
     private val clientErrorDecoder: ClientErrorDecoder,
     private val objectMapper: ObjectMapper
 ) {
