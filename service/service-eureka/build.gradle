@@ -2,6 +2,4 @@ dependencies {
     compile project(":common:common-service")
     compile "org.springframework.boot:spring-boot-starter-web"
     compile "org.springframework.cloud:spring-cloud-starter-netflix-eureka-server"
-
-    //compile "org.springframework.cloud:spring-cloud-starter-netflix-eureka-server"
 }

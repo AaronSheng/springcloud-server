@@ -5,4 +5,5 @@ dependencies {
     compile "io.github.openfeign:feign-okhttp"
     compile "io.github.openfeign:feign-jackson"
     compile "org.springframework.cloud:spring-cloud-starter-openfeign"
+    compile "org.springframework.cloud:spring-cloud-starter-netflix-eureka-client"
 }

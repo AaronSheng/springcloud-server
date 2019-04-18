@@ -19,9 +19,5 @@ import org.springframework.core.Ordered
 @AutoConfigureBefore(JerseyAutoConfiguration::class)
 class WebAutoConfiguration{
     @Bean
-    @Profile("!prod")
-    fun jerseySwaggerConfig() = JerseySwaggerConfig()
-
-    @Bean
     fun sleuthResponseFilter() = ServletResponseFilter()
 }

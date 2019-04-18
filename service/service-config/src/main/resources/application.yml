@@ -11,6 +11,7 @@ spring:
         git:
           uri: https://github.com/AaronSheng/springcloud-server.git
           search-paths: config/{application}/
+          default-label: eureka
 
 eureka:
   client:
