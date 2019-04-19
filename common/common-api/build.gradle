@@ -1,6 +1,6 @@
 dependencies {
-    compile "javax.ws.rs:javax.ws.rs-api"
-    compile "io.swagger:swagger-jersey2-jaxrs"
+    compile "io.springfox:springfox-swagger2"
+    compile "io.springfox:springfox-swagger-ui"
 
     compile "com.fasterxml.jackson.module:jackson-module-kotlin"
     compile "com.fasterxml.jackson.core:jackson-core"

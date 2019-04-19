@@ -4,7 +4,6 @@ import com.aaron.client.api.UserResource
 import com.aaron.client.api.pojo.User
 import com.aaron.client.service.UserService
 import com.aaron.common.api.pojo.Result
-import com.aaron.common.web.RestResource
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.RestController

@@ -7,7 +7,7 @@ buildscript {
         springBootVersion = "2.1.3.RELEASE"
         springCloudVersion = "2.1.0.RELEASE"
         springBootAdminVersion = "2.1.3"
-        swaggerVersion = "1.5.17"
+        swaggerVersion = "2.2.2"
         jaxrsVersion = "2.1"
         jacksonVersion = "2.9.2"
         esVersion = "5.5.2"
@@ -87,10 +87,9 @@ subprojects {
             imports {
                 mavenBom "org.springframework.boot:spring-boot-dependencies:$springBootVersion"
             }
-            dependency "io.swagger:swagger-annotations:$swaggerVersion"
             dependency "org.hashids:hashids:$hashidsVersion"
-            dependency "javax.ws.rs:javax.ws.rs-api:$jaxrsVersion"
-            dependency "io.swagger:swagger-jersey2-jaxrs:$swaggerVersion"
+            dependency "io.springfox:springfox-swagger2:$swaggerVersion"
+            dependency "io.springfox:springfox-swagger-ui:$swaggerVersion"
 
             dependency "com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonVersion"
             dependency "com.fasterxml.jackson.core:jackson-core:$jacksonVersion"
