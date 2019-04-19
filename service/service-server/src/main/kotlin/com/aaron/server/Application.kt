@@ -9,8 +9,6 @@ import org.springframework.cloud.openfeign.EnableFeignClients
  * Created by Aaron Sheng on 2018/6/19.
  */
 @MicroService
-@EnableDiscoveryClient
-@EnableFeignClients
 class Application
 
 fun main(args: Array<String>) {

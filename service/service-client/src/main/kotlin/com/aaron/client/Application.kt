@@ -10,7 +10,6 @@ import org.springframework.cloud.openfeign.EnableFeignClients
  * Created by Aaron Sheng on 2018/6/19.
  */
 @MicroService
-@EnableEurekaClient
 class Application
 
 fun main(args: Array<String>) {
