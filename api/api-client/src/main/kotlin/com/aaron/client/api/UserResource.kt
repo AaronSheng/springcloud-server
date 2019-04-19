@@ -8,9 +8,6 @@ import io.swagger.annotations.ApiParam
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestParam
-import javax.ws.rs.*
-import javax.ws.rs.core.MediaType
 
 /**
  * Created by Aaron Sheng on 2019/4/3.
