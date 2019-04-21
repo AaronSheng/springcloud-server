@@ -20,6 +20,30 @@ import java.net.URI;
 public class Log4j2Initializer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
     private String CONFIG_FILE = "log4j2.xml";
 
+    private String CONSOLE_PATTERN = "%d{yyyy-MM-dd HH:mm:ss} " +
+        "%blue{[%8.8t]} " +
+        "%highlight{%5level} " +
+        "%cyan{%-40.40c{1.} %-4.4L} " +
+        "%cyan{Trace(%X{X-B3-TraceId},%X{X-B3-SpanId},%X{X-B3-ParentSpanId})} " +
+        "%msg%n%throwable";
+
+    private String LOGSTASH_PATTERN = "{" +
+        "\"timestamp\": \"%d{yyyy.MM.dd HH:mm:ss}\", " +
+        "\"level\": \"%level\", " +
+        "\"class\": \"%c Line:%L\", " +
+        "\"trace\": \"(%X{X-B3-TraceId},%X{X-B3-SpanId},%X{X-B3-ParentSpanId})\", " +
+        "\"message\" : \"%msg\", " +
+        "\"throwable\": \"%throwable\"" +
+        "}%n";
+
+    private String LOG_PATTERN = "%d{yyyy.MM.dd HH:mm:ss} " +
+        "[%8.8t] " +
+        "%5level " +
+        "%-40.40c{1.}" +
+        " %-4.4L " +
+        "Trace(%X{X-B3-TraceId},%X{X-B3-SpanId},%X{X-B3-ParentSpanId}) " +
+        "%msg%n%throwable";
+
     @Override
     public void initialize(ConfigurableApplicationContext applicationContext) {
         try {
@@ -69,14 +93,27 @@ public class Log4j2Initializer implements ApplicationContextInitializer<Configur
         builder.setStatusLevel(Level.ERROR);
         builder.setConfigurationName("Config");
 
+        // console log appender
         LayoutComponentBuilder consoleLayoutBuilder = builder.newLayout("PatternLayout")
-            .addAttribute("pattern", "%d{yyyy-MM-dd HH:mm:ss} %blue{[%8.8t]} %highlight{%5level} %cyan{%-40.40c{1.} %-4.4L} %cyan{Trace(%X{X-B3-TraceId},%X{X-B3-SpanId},%X{X-B3-ParentSpanId})} %msg%n%throwable")
+            .addAttribute("pattern", CONSOLE_PATTERN)
             .addAttribute("charset", "UTF-8");
 
-        AppenderComponentBuilder appenderBuilder = builder.newAppender("Stdout", "CONSOLE").addAttribute("target",
-            ConsoleAppender.Target.SYSTEM_OUT)
+        AppenderComponentBuilder appenderBuilder = builder.newAppender("Stdout", "CONSOLE")
+            .addAttribute("target", ConsoleAppender.Target.SYSTEM_OUT)
             .add(consoleLayoutBuilder);
         builder.add(appenderBuilder);
+
+        // logstash log appender
+        LayoutComponentBuilder logstashLayoutBuilder = builder.newLayout("PatternLayout")
+            .addAttribute("pattern", LOGSTASH_PATTERN)
+            .addAttribute("charset", "UTF-8");
+
+        AppenderComponentBuilder logstashBuilder = builder.newAppender("Logstash", "Socket")
+            .addAttribute("host", "127.0.0.1")
+            .addAttribute("port", "5044")
+            .addAttribute("protocol", "TCP")
+            .add(logstashLayoutBuilder);
+        builder.add(logstashBuilder);
 
         // 过滤hibernate输出
         builder.add(builder.newLogger("org.hibernate", Level.ERROR)
@@ -91,13 +128,16 @@ public class Log4j2Initializer implements ApplicationContextInitializer<Configur
             // com.aaron输出debug日志
             builder.add(builder.newLogger("com.aaron", Level.DEBUG)
                 .add(builder.newAppenderRef("Stdout"))
+                .add(builder.newAppenderRef("Logstash"))
                 .addAttribute("additivity", false));
 
             builder.add(builder.newRootLogger(Level.INFO)
-                .add(builder.newAppenderRef("Stdout")));
+                .add(builder.newAppenderRef("Logstash"))
+                .add(builder.newAppenderRef("Stdout"))
+            );
         } else {
             LayoutComponentBuilder rollingLayoutBuilder = builder.newLayout("PatternLayout")
-                .addAttribute("pattern", "%d{yyyy.MM.dd HH:mm:ss} [%8.8t] %5level %-40.40c{1.} %-4.4L Trace(%X{X-B3-TraceId},%X{X-B3-SpanId},%X{X-B3-ParentSpanId}) %msg%n%throwable")
+                .addAttribute("pattern", LOG_PATTERN)
                 .addAttribute("charset", "UTF-8");
 
             ComponentBuilder triggeringPolicy = builder.newComponent("Policies")
@@ -114,6 +154,7 @@ public class Log4j2Initializer implements ApplicationContextInitializer<Configur
 
             builder.add(builder.newRootLogger(Level.INFO)
                 .add(builder.newAppenderRef("Stdout"))
+                .add(builder.newAppenderRef("Logstash"))
                 .add(builder.newAppenderRef("Rolling")));
         }
 
