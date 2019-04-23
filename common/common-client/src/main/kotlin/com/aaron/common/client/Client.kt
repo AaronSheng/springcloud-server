@@ -7,6 +7,7 @@ import feign.Feign
 import feign.Request
 import feign.RetryableException
 import feign.Retryer
+import feign.hystrix.HystrixFeign
 import feign.jackson.JacksonDecoder
 import feign.jackson.JacksonEncoder
 import feign.jaxrs.JAXRSContract
@@ -38,7 +39,7 @@ class Client @Autowired constructor(
         val serviceName = findServiceName(clz)
         val serviceInstance = choose(serviceName)
         val url = "${if (serviceInstance.isSecure) "https" else "http"}://${serviceInstance.host}:${serviceInstance.port}"
-        return Feign.builder()
+        return HystrixFeign.builder()
             .client(feignClient)
             .errorDecoder(clientErrorDecoder)
             .encoder(jacksonEncoder)
@@ -51,7 +52,7 @@ class Client @Autowired constructor(
         val serviceName = findServiceName(clz)
         val serviceInstance = choose(serviceName)
         val url = "${if (serviceInstance.isSecure) "https" else "http"}://${serviceInstance.host}:${serviceInstance.port}"
-        return Feign.builder()
+        return HystrixFeign.builder()
             .client(feignClient)
             .errorDecoder(clientErrorDecoder)
             .encoder(jacksonEncoder)
