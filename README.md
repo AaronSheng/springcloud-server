@@ -1,7 +1,7 @@
 #### 整体架构
-- SpringBoot + Jersey提供Restful规范API；
+- SpringBoot提供Restful规范API；
 - SpringBoot Admin提供服务监控和通知功能；
-- Consul作为注册中心提供服务注册和发现功能；
+- Eureka作为注册中心提供服务注册和发现功能；
 - SpringCloud Openfeign提供RPC调用；
 - SpringCloud Config作为注册中心拉取github配置提供配置服务；
 - SpringCloud Sleuth提供全链路日志跟跟踪；
