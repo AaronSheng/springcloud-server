@@ -5,7 +5,8 @@
 - SpringCloud Openfeign提供RPC调用；
 - SpringCloud Config作为注册中心拉取github配置提供配置服务；
 - SpringCloud Sleuth提供全链路日志跟跟踪；
-- SpringCloud Zipkin + Elasticsearch提供全链路检索功能。
+- SpringCloud Zipkin + Elasticsearch提供全链路检索功能；
+- Elasticsearch + Logstash + Log4j2日志收集。
 
 #### Admin监控中心
 SpringBoot Admin提供服务注册发现后的监控功能，包括服务上下线通知、metrics数据，jvm数据等。
