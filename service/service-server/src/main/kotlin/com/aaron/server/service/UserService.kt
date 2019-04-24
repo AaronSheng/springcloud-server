@@ -15,6 +15,7 @@ class UserService @Autowired constructor(
     private val userDao: UserDao
 ){
     fun getUser(id: Long): User {
+        Thread.sleep(60000)
         val user = userDao.get(dslContext, id)
         return User(id, user.name)
     }

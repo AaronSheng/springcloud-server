@@ -1,5 +1,6 @@
 package com.aaron.common.client
 
+import com.aaron.common.client.circuit.Circuit
 import com.fasterxml.jackson.databind.ObjectMapper
 import feign.okhttp.OkHttpClient
 import org.springframework.boot.autoconfigure.AutoConfigureAfter
@@ -23,6 +24,9 @@ import java.util.concurrent.TimeUnit
 class ClientAutoConfiguration {
 
     @Bean
+    fun circuit() = Circuit()
+
+    @Bean
     fun okHttpClient() = OkHttpClient(
         okhttp3.OkHttpClient.Builder()
             .connectTimeout(5L, TimeUnit.SECONDS)
@@ -39,7 +43,6 @@ class ClientAutoConfiguration {
     fun client(
         clientErrorDecoder: ClientErrorDecoder,
         objectMapper: ObjectMapper,
-        okHttpClient: feign.Client,
-        consulDiscoveryClient: ConsulDiscoveryClient
-    ) = Client(okHttpClient, consulDiscoveryClient, clientErrorDecoder, objectMapper)
+        okHttpClient: feign.Client
+    ) = Client(okHttpClient, clientErrorDecoder, objectMapper)
 }
