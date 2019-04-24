@@ -118,7 +118,6 @@ subprojects {
                 entry "spring-cloud-stream-binder-rabbit"
                 entry "spring-cloud-starter-netflix-eureka-client"
                 entry "spring-cloud-starter-netflix-eureka-server"
-                entry "spring-cloud-starter-netflix-hystrix"
                 entry "spring-cloud-config-server"
             }
         }
