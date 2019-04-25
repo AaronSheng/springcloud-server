@@ -1,6 +1,8 @@
 package com.aaron.common.client.circuit
 
+import com.aaron.common.util.difference
 import com.aaron.common.util.over
+import com.aaron.common.util.timestamp
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.cloud.client.ServiceInstance
@@ -8,51 +10,92 @@ import org.springframework.stereotype.Component
 import java.net.URI
 import java.time.LocalDateTime
 import java.util.concurrent.ConcurrentHashMap
+import java.util.concurrent.locks.ReentrantLock
 
 /**
  * Created by Aaron Sheng on 2019/4/23.
  */
 @Component
 class Circuit {
-    @Value("\${circuit.retry.period:#{null}}")
-    private val period: Long? = null
+    @Value("\${circuit.breaker.sleepWindowInSeconds:#{null}}")
+    private val sleepWindowInSeconds: Long? = 30
+    @Value("\${circuit.breaker.requestVolumeThreshold:#{null}}")
+    private val requestVolumeThreshold: Long? = 10
 
-    private val circuits = ConcurrentHashMap<String, LocalDateTime>()
+    // fail request count window
+    private val defaultRequestWindow = 60
+
+    // fail request count
+    private val failRequests = ConcurrentHashMap<String, FailRequest>()
+
+    // broken service
+    private val breakers = ConcurrentHashMap<String, LocalDateTime>()
+
+    // breaker lock to protect concurrent resource
+    private val locks = ConcurrentHashMap<String, ReentrantLock>()
 
     fun filterInstance(instances: List<ServiceInstance>): MutableList<ServiceInstance> {
         return instances.filter { instance ->
             val key = compositeKey(instance)
-            val localDateTime = circuits[key]
-            if (localDateTime != null) {
-                if (localDateTime.over()) {
+
+            val breakerCloseTime = breakers[key]
+            if (breakerCloseTime != null) {
+                if (breakerCloseTime.over()) {
                     logger.info("circuit remove key($key)")
-                    circuits.remove(key)
+                    breakers.remove(key)
                 }
-                localDateTime.over()
+                breakerCloseTime.over()
             } else {
                 true
             }
         }.toMutableList()
     }
 
-    fun addCircuitInstance(url: String, seconds: Long? = null) {
-        val retryPeriod = seconds ?: period!!
+    fun addFailRequest(url: String) {
         val key = compositeKey(url)
+        val lock = getLock(key)
 
-        logger.info("circuit add key($key) period($retryPeriod)")
-        circuits[key] = LocalDateTime.now().plusSeconds(retryPeriod)
+        try {
+            lock.lock()
+            var failRequest = failRequests[key] ?: FailRequest(0, LocalDateTime.now())
+
+            // reset fail request count because of time difference over request window
+            if (LocalDateTime.now().difference(failRequest.failTime) > defaultRequestWindow) {
+                failRequest = FailRequest(0, LocalDateTime.now())
+            }
+
+            failRequest.failTimes++
+            if (failRequest.failTimes >= requestVolumeThreshold!!) {
+                logger.info("circuit add key($key) period($sleepWindowInSeconds)")
+                breakers[key] = LocalDateTime.now().plusSeconds(sleepWindowInSeconds!!)
+            }
+
+            failRequests[key] = failRequest
+        } finally {
+            lock.unlock()
+        }
     }
 
-    fun compositeKey(url: String): String {
+    private fun getLock(key: String): ReentrantLock {
+        val lamada = { ReentrantLock() }
+        return locks.getOrPut(key, lamada)
+    }
+
+    private fun compositeKey(url: String): String {
         val uri = URI.create(url)
         return "${uri.host}:${uri.port}"
     }
 
-    fun compositeKey(serviceInstance: ServiceInstance): String {
+    private fun compositeKey(serviceInstance: ServiceInstance): String {
         return "${serviceInstance.host}:${serviceInstance.port}"
     }
 
     companion object {
         private val logger = LoggerFactory.getLogger(this::class.java)
     }
+
+    data class FailRequest(
+        var failTimes: Long,
+        var failTime: LocalDateTime
+    )
 }

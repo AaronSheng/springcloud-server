@@ -15,3 +15,7 @@ fun LocalDateTime.over(): Boolean {
     val now = LocalDateTime.now()
     return timestamp() < now.timestamp()
 }
+
+fun LocalDateTime.difference(other: LocalDateTime): Long {
+    return timestamp() - other.timestamp()
+}

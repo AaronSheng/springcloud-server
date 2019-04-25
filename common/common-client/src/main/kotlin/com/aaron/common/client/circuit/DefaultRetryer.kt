@@ -27,7 +27,7 @@ class DefaultRetryer<T> constructor(
         // add url to circuit
         if (e.cause != null && e.cause is SocketTimeoutException) {
             val circuit = SpringContextUtil.getBean(Circuit::class.java)
-            circuit.addCircuitInstance(target.url())
+            circuit.addFailRequest(target.url())
         }
 
         if (attempt++ >= maxAttempts) {

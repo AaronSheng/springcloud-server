@@ -17,7 +17,7 @@ class NeverRetryer<T> constructor(private val target: Target<T>): Retryer {
     override fun continueOrPropagate(e: RetryableException) {
         if (e.cause != null && e.cause is SocketTimeoutException) {
             val circuit = SpringContextUtil.getBean(Circuit::class.java)
-            circuit.addCircuitInstance(target.url())
+            circuit.addFailRequest(target.url())
         }
         throw e
     }
