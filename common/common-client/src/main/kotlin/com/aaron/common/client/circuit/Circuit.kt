@@ -1,7 +1,7 @@
 package com.aaron.common.client.circuit
 
 import com.aaron.common.util.difference
-import com.aaron.common.util.over
+import com.aaron.common.util.overtime
 import com.aaron.common.util.timestamp
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
@@ -9,8 +9,10 @@ import org.springframework.cloud.client.ServiceInstance
 import org.springframework.stereotype.Component
 import java.net.URI
 import java.time.LocalDateTime
+import java.util.*
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.locks.ReentrantLock
+import javax.annotation.PostConstruct
 
 /**
  * Created by Aaron Sheng on 2019/4/23.
@@ -34,20 +36,42 @@ class Circuit {
     // breaker lock to protect concurrent resource
     private val locks = ConcurrentHashMap<String, ReentrantLock>()
 
+    private val timers = Timer()
+
+    @PostConstruct
+    fun startTimer() {
+        timers.schedule(object : TimerTask() {
+            override fun run() {
+                clearOvertimeBreaker()
+            }
+        }, 15000, 5000)
+    }
+
+    private fun clearOvertimeBreaker() {
+        val breakerSize = breakers.size
+
+        for (index in 1..breakerSize) {
+            run breaking@{
+                breakers.forEach { breaker ->
+                    if (breaker.value.overtime()) {
+                        val lock = getLock(breaker.key)
+                        try {
+                            lock.lock()
+                            breakers.remove(breaker.key)
+                            logger.info("circuit remove key(${breaker.key})")
+                        } finally {
+                            lock.unlock()
+                        }
+                        return@breaking
+                    }
+                }
+            }
+        }
+    }
+
     fun filterInstance(instances: List<ServiceInstance>): MutableList<ServiceInstance> {
         return instances.filter { instance ->
-            val key = compositeKey(instance)
-
-            val breakerCloseTime = breakers[key]
-            if (breakerCloseTime != null) {
-                if (breakerCloseTime.over()) {
-                    logger.info("circuit remove key($key)")
-                    breakers.remove(key)
-                }
-                breakerCloseTime.over()
-            } else {
-                true
-            }
+            !breakers.containsKey(compositeKey(instance))
         }.toMutableList()
     }
 

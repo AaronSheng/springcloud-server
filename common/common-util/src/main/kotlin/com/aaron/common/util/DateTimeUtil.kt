@@ -11,7 +11,7 @@ fun LocalDateTime.timestamp(): Long {
     return this.atZone(zoneId).toInstant().epochSecond
 }
 
-fun LocalDateTime.over(): Boolean {
+fun LocalDateTime.overtime(): Boolean {
     val now = LocalDateTime.now()
     return timestamp() < now.timestamp()
 }
