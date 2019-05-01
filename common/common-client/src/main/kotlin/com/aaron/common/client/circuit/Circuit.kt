@@ -15,7 +15,7 @@ import java.util.concurrent.ConcurrentHashMap
 @Component
 class Circuit {
     @Value("\${circuit.retry.period:#{null}}")
-    private val period: Long? = null
+    private val period: Long? = 30
 
     private val circuits = ConcurrentHashMap<String, LocalDateTime>()
 
