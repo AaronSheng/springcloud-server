@@ -3,6 +3,14 @@ subprojects {
     apply plugin: "kotlin-spring"
     apply plugin: "org.springframework.boot"
 
+    task copyToRelease(type: Copy, dependsOn: bootJar) {
+        from("build/libs") {
+            include("**/*.jar")
+        }
+        into "${projectDir}/../../release"
+        outputs.upToDateWhen { false }
+    }
+
     dependencies {
         compile "org.jetbrains.kotlin:kotlin-stdlib"
         compile "org.jetbrains.kotlin:kotlin-reflect"
